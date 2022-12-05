@@ -47,3 +47,15 @@ class Solution(object): ## быстрая сортировка
             cen = [mid] * nums.count(mid)
             right =  list(filter(lambda x: x>mid, nums))
             return self.sortArray(left) + cen + self.sortArray(right)
+        
+class Solution: ##сортировка подсчётом
+    def sortArray(self, nums: List[int]) -> List[int]:
+        minimum = min(nums)
+        size = max(nums) - minimum + 1
+        count_list = [0] * size
+        res = []
+        for x in nums:
+            count_list[x - minimum] += 1
+        for i in range(len(count_list)):
+            res += [i + minimum] * count_list[i]
+        return res
