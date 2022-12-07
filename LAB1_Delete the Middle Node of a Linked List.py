@@ -11,20 +11,16 @@ https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
 #         self.next = next
 class Solution:
     def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        fh=head
-        lh=0
-        while fh:
-            lh+=1
-            fh=fh.next
-        if lh==1:
+        slow=head
+        fast=head
+        n=0
+        prev=slow
+        while fast and fast.next:
+            prev=slow
+            slow=slow.next
+            fast=fast.next.next
+            n+=1
+        if n==0:
             return None
-        elif lh==2:
-            head.next=None
-            return head
-        else:
-            fh=head
-            for i in range(lh//2):
-                head=head.next
-            head.val=head.next.val
-            head.next=head.next.next
-        return fh
+        prev.next=slow.next
+        return head
